@@ -175,3 +175,8 @@ hr {
 #submit-btn:active {
     transform: scale(0.98);
 }
+
+/* Comments Section Styles */
+.comments-section {
+    margin-top: 3rem;
+}
