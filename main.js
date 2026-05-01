@@ -41,3 +41,43 @@ generateBtn.addEventListener('click', () => {
     }, 100);
   });
 });
+
+// Form Submission Logic
+const partnershipForm = document.getElementById('partnership-form');
+const submitBtn = document.getElementById('submit-btn');
+
+if (partnershipForm) {
+  partnershipForm.addEventListener('submit', async (event) => {
+    event.preventDefault();
+    
+    const formData = new FormData(partnershipForm);
+    const data = Object.fromEntries(formData.entries());
+    
+    submitBtn.disabled = true;
+    submitBtn.textContent = '보내는 중...';
+    
+    try {
+      const response = await fetch(partnershipForm.action, {
+        method: 'POST',
+        body: JSON.stringify(data),
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json'
+        }
+      });
+      
+      if (response.ok) {
+        partnershipForm.innerHTML = '<div style="text-align: center; padding: 20px;"><h3>감사합니다!</h3><p>문의가 성공적으로 접수되었습니다. 곧 연락드리겠습니다.</p></div>';
+      } else {
+        const errorData = await response.json();
+        alert('오류가 발생했습니다: ' + (errorData.error || '다시 시도해주세요.'));
+        submitBtn.disabled = false;
+        submitBtn.textContent = '보내기';
+      }
+    } catch (error) {
+      alert('서버와의 통신 중 오류가 발생했습니다.');
+      submitBtn.disabled = false;
+      submitBtn.textContent = '보내기';
+    }
+  });
+}
