@@ -65,8 +65,12 @@ async function handleImage(file) {
   const reader = new FileReader();
   reader.onload = async (e) => {
     faceImage.src = e.target.result;
-    if (!model) await loadModel();
-    predict(faceImage);
+    
+    // Ensure the image is fully loaded before prediction
+    faceImage.onload = async () => {
+      if (!model) await loadModel();
+      await predict(faceImage);
+    };
   };
   reader.readAsDataURL(file);
 }
