@@ -3,50 +3,45 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>인공지능 동물상 테스트</title>
+  <title>로또 번호 생성기</title>
   <link href='style.css' rel='stylesheet'>
+  <style>
+    .nav-btn {
+      margin-top: 1rem;
+      padding: 0.8rem 1.5rem;
+      background-color: #ff6b6b;
+      color: white;
+      border: none;
+      border-radius: 30px;
+      cursor: pointer;
+      font-weight: 600;
+      text-decoration: none;
+      display: inline-block;
+      transition: transform 0.2s;
+    }
+    .nav-btn:hover {
+      transform: scale(1.05);
+    }
+  </style>
 </head>
 <body>
   <div class="container">
     <button id="theme-toggle" class="theme-toggle" aria-label="Toggle dark mode">🌙</button>
-    
-    <header>
-      <h1>인공지능 동물상 테스트</h1>
-      <p class="subtitle">나와 닮은 동물은 무엇일까요?</p>
-    </header>
-
-    <div class="mode-selector">
-      <button id="use-upload" class="mode-btn active">사진 업로드</button>
-      <button id="use-webcam" class="mode-btn">실시간 웹캠</button>
+    <h1>로또 번호 생성기</h1>
+    <div class="lotto-numbers">
+      <span class="number">?</span>
+      <span class="number">?</span>
+      <span class="number">?</span>
+      <span class="number">?</span>
+      <span class="number">?</span>
+      <span class="number">?</span>
     </div>
-
-    <main>
-      <!-- Upload Mode -->
-      <div id="upload-section">
-        <div id="upload-area" class="upload-area">
-          <div class="upload-icon">📸</div>
-          <p>사진을 드래그하거나 클릭하여 업로드하세요</p>
-          <input type="file" id="image-upload" accept="image/*" hidden>
-        </div>
-      </div>
-
-      <!-- Webcam Mode -->
-      <div id="webcam-section" style="display: none;">
-        <div id="webcam-container" class="webcam-container"></div>
-        <button id="webcam-start-btn" class="start-btn">웹캠 시작하기</button>
-      </div>
-
-      <!-- Result Display -->
-      <div id="result-area" class="result-area" style="display: none;">
-        <div class="preview-container">
-          <img id="face-image" src="" alt="Face Image" style="display: none;">
-          <div id="webcam-preview-placeholder"></div>
-        </div>
-        <p id="loading-message" style="display: none;">분석 중...</p>
-        <div id="label-container" class="label-container"></div>
-        <button id="retry-btn" class="retry-btn">다시 하기</button>
-      </div>
-    </main>
+    <button id="generate-btn">번호 생성하기</button>
+    
+    <div style="margin-top: 2rem;">
+      <p>다른 테스트도 해보시겠어요?</p>
+      <a href="animal-test.html" class="nav-btn">인공지능 동물상 테스트 가기 🐶</a>
+    </div>
 
     <div class="partnership-section">
       <hr>
@@ -73,11 +68,7 @@
       <div id="disqus_thread"></div>
     </div>
   </div>
-
-  <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@latest/dist/tf.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/@teachablemachine/image@latest/dist/teachablemachine-image.min.js"></script>
-  <script defer type="text/javascript" src="main.js"></script>
-  
+  <script defer type="text/javascript" src="lotto.js"></script>
   <script>
       (function() {
       var d = document, s = d.createElement('script');
