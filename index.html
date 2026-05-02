@@ -1,52 +1,24 @@
 <!doctype html>
-<html lang="ko">
+<html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>인공지능 동물상 테스트</title>
+  <title>Lotto Number Generator</title>
   <link href='style.css' rel='stylesheet'>
 </head>
 <body>
   <div class="container">
     <button id="theme-toggle" class="theme-toggle" aria-label="Toggle dark mode">🌙</button>
-    
-    <header>
-      <h1>인공지능 동물상 테스트</h1>
-      <p class="subtitle">나와 닮은 동물은 무엇일까요?</p>
-    </header>
-
-    <div class="mode-selector">
-      <button id="use-upload" class="mode-btn active">사진 업로드</button>
-      <button id="use-webcam" class="mode-btn">실시간 웹캠</button>
+    <h1>Lotto Number Generator</h1>
+    <div class="lotto-numbers">
+      <span class="number">?</span>
+      <span class="number">?</span>
+      <span class="number">?</span>
+      <span class="number">?</span>
+      <span class="number">?</span>
+      <span class="number">?</span>
     </div>
-
-    <main>
-      <!-- Upload Mode -->
-      <div id="upload-section">
-        <div id="upload-area" class="upload-area">
-          <div class="upload-icon">📸</div>
-          <p>사진을 드래그하거나 클릭하여 업로드하세요</p>
-          <input type="file" id="image-upload" accept="image/*" hidden>
-        </div>
-      </div>
-
-      <!-- Webcam Mode -->
-      <div id="webcam-section" style="display: none;">
-        <div id="webcam-container" class="webcam-container"></div>
-        <button id="webcam-start-btn" class="start-btn">웹캠 시작하기</button>
-      </div>
-
-      <!-- Result Display -->
-      <div id="result-area" class="result-area" style="display: none;">
-        <div class="preview-container">
-          <img id="face-image" src="" alt="Face Image" style="display: none;">
-          <div id="webcam-preview-placeholder"></div>
-        </div>
-        <p id="loading-message" style="display: none;">분석 중...</p>
-        <div id="label-container" class="label-container"></div>
-        <button id="retry-btn" class="retry-btn">다시 하기</button>
-      </div>
-    </main>
+    <button id="generate-btn">Generate Numbers</button>
 
     <div class="partnership-section">
       <hr>
@@ -71,20 +43,17 @@
     <div class="comments-section">
       <hr>
       <div id="disqus_thread"></div>
+      <script>
+          (function() {
+          var d = document, s = d.createElement('script');
+          s.src = 'https://productbuilder-myjgdia0g9.disqus.com/embed.js';
+          s.setAttribute('data-timestamp', +new Date());
+          (d.head || d.body).appendChild(s);
+          })();
+      </script>
+      <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
     </div>
   </div>
-
-  <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@latest/dist/tf.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/@teachablemachine/image@latest/dist/teachablemachine-image.min.js"></script>
   <script defer type="text/javascript" src="main.js"></script>
-  
-  <script>
-      (function() {
-      var d = document, s = d.createElement('script');
-      s.src = 'https://productbuilder-myjgdia0g9.disqus.com/embed.js';
-      s.setAttribute('data-timestamp', +new Date());
-      (d.head || d.body).appendChild(s);
-      })();
-  </script>
 </body>
 </html>
