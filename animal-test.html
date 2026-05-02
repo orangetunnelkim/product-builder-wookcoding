@@ -15,16 +15,12 @@
       <p class="subtitle">나와 닮은 동물은 무엇일까요?</p>
     </header>
 
-    <div class="mode-selector">
-      <button id="use-upload" class="mode-btn active">사진 업로드</button>
-      <button id="use-webcam" class="mode-btn">실시간 웹캠</button>
-    </div>
-
     <main>
       <div style="margin-bottom: 2rem;">
         <a href="index.html" style="text-decoration: none; color: #ff6b6b; font-weight: 600;">← 로또 번호 생성기로 돌아가기</a>
       </div>
-      <!-- Upload Mode -->
+      
+      <!-- Upload Mode Only -->
       <div id="upload-section">
         <div id="upload-area" class="upload-area">
           <div class="upload-icon">📸</div>
@@ -33,17 +29,10 @@
         </div>
       </div>
 
-      <!-- Webcam Mode -->
-      <div id="webcam-section" style="display: none;">
-        <div id="webcam-container" class="webcam-container"></div>
-        <button id="webcam-start-btn" class="start-btn">웹캠 시작하기</button>
-      </div>
-
       <!-- Result Display -->
       <div id="result-area" class="result-area" style="display: none;">
         <div class="preview-container">
-          <img id="face-image" src="" alt="Face Image" style="display: none;">
-          <div id="webcam-preview-placeholder"></div>
+          <img id="face-image" src="" alt="Face Image">
         </div>
         <p id="loading-message" style="display: none;">분석 중...</p>
         <div id="label-container" class="label-container"></div>

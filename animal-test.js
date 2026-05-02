@@ -1,7 +1,5 @@
 const URL = "https://teachablemachine.withgoogle.com/models/6DtRgJCTB/";
-let model, webcam, labelContainer, maxPredictions;
-let isWebcamMode = false;
-let animationFrameId;
+let model, labelContainer, maxPredictions;
 
 // Theme Logic
 const themeToggle = document.getElementById('theme-toggle');
@@ -33,39 +31,14 @@ async function loadModel() {
 }
 
 // UI Elements
-const useUploadBtn = document.getElementById('use-upload');
-const useWebcamBtn = document.getElementById('use-webcam');
 const uploadSection = document.getElementById('upload-section');
-const webcamSection = document.getElementById('webcam-section');
 const uploadArea = document.getElementById('upload-area');
 const imageUpload = document.getElementById('image-upload');
 const resultArea = document.getElementById('result-area');
 const faceImage = document.getElementById('face-image');
-const webcamContainer = document.getElementById('webcam-container');
-const webcamStartBtn = document.getElementById('webcam-start-btn');
 const loadingMessage = document.getElementById('loading-message');
 const retryBtn = document.getElementById('retry-btn');
 labelContainer = document.getElementById('label-container');
-
-// Mode Selection
-useUploadBtn.addEventListener('click', () => {
-  stopWebcam();
-  isWebcamMode = false;
-  useUploadBtn.classList.add('active');
-  useWebcamBtn.classList.remove('active');
-  uploadSection.style.display = 'block';
-  webcamSection.style.display = 'none';
-  resultArea.style.display = 'none';
-});
-
-useWebcamBtn.addEventListener('click', () => {
-  isWebcamMode = true;
-  useWebcamBtn.classList.add('active');
-  useUploadBtn.classList.remove('active');
-  webcamSection.style.display = 'block';
-  uploadSection.style.display = 'none';
-  resultArea.style.display = 'none';
-});
 
 // Upload Logic
 uploadArea.addEventListener('click', () => imageUpload.click());
@@ -98,49 +71,6 @@ async function handleImage(file) {
   reader.readAsDataURL(file);
 }
 
-// Webcam Logic
-webcamStartBtn.addEventListener('click', async () => {
-  webcamStartBtn.disabled = true;
-  webcamStartBtn.textContent = '카메라 켜는 중...';
-  
-  if (!model) await loadModel();
-  
-  const flip = true;
-  webcam = new tmImage.Webcam(300, 300, flip);
-  await webcam.setup();
-  await webcam.play();
-  
-  webcamSection.style.display = 'none';
-  resultArea.style.display = 'block';
-  faceImage.style.display = 'none';
-  webcamContainer.innerHTML = '';
-  webcamContainer.appendChild(webcam.canvas);
-  
-  // For webcam mode, we show the live canvas in the result area
-  document.getElementById('webcam-preview-placeholder').appendChild(webcam.canvas);
-  
-  animationFrameId = window.requestAnimationFrame(webcamLoop);
-});
-
-async function webcamLoop() {
-  webcam.update();
-  await predict(webcam.canvas);
-  animationFrameId = window.requestAnimationFrame(webcamLoop);
-}
-
-function stopWebcam() {
-  if (webcam) {
-    webcam.stop();
-    webcam = null;
-  }
-  if (animationFrameId) {
-    window.cancelAnimationFrame(animationFrameId);
-  }
-  document.getElementById('webcam-preview-placeholder').innerHTML = '';
-  webcamStartBtn.disabled = false;
-  webcamStartBtn.textContent = '웹캠 시작하기';
-}
-
 // Prediction Logic
 async function predict(input) {
   const prediction = await model.predict(input);
@@ -149,56 +79,43 @@ async function predict(input) {
   // Sort predictions
   prediction.sort((a, b) => b.probability - a.probability);
 
-  // Clear or update bars
-  if (!isWebcamMode) labelContainer.innerHTML = '';
+  labelContainer.innerHTML = '';
   
-  prediction.forEach((p, i) => {
+  prediction.forEach((p) => {
     const classTitle = p.className;
     const probability = (p.probability * 100).toFixed(0);
     
-    let barContainer = labelContainer.querySelector(`.bar-container[data-class="${classTitle}"]`);
+    const barContainer = document.createElement('div');
+    barContainer.className = 'bar-container';
+    barContainer.setAttribute('data-class', classTitle);
     
-    if (!barContainer) {
-      barContainer = document.createElement('div');
-      barContainer.className = 'bar-container';
-      barContainer.setAttribute('data-class', classTitle);
-      
-      const label = document.createElement('div');
-      label.className = 'bar-label';
-      label.textContent = classTitle;
-      
-      const progressWrapper = document.createElement('div');
-      progressWrapper.className = 'progress-wrapper';
-      
-      const progressBar = document.createElement('div');
-      progressBar.className = `progress-bar ${classTitle.toLowerCase()}-bar`;
-      
-      const percent = document.createElement('span');
-      percent.className = 'percent';
-      
-      progressWrapper.appendChild(progressBar);
-      barContainer.appendChild(label);
-      barContainer.appendChild(progressWrapper);
-      barContainer.appendChild(percent);
-      labelContainer.appendChild(barContainer);
-    }
+    const label = document.createElement('div');
+    label.className = 'bar-label';
+    label.textContent = classTitle;
     
-    const bar = barContainer.querySelector('.progress-bar');
-    const pct = barContainer.querySelector('.percent');
-    bar.style.width = `${probability}%`;
-    pct.textContent = `${probability}%`;
+    const progressWrapper = document.createElement('div');
+    progressWrapper.className = 'progress-wrapper';
+    
+    const progressBar = document.createElement('div');
+    progressBar.className = `progress-bar ${classTitle.toLowerCase()}-bar`;
+    progressBar.style.width = `${probability}%`;
+    
+    const percent = document.createElement('span');
+    percent.className = 'percent';
+    percent.textContent = `${probability}%`;
+    
+    progressWrapper.appendChild(progressBar);
+    barContainer.appendChild(label);
+    barContainer.appendChild(progressWrapper);
+    barContainer.appendChild(percent);
+    labelContainer.appendChild(barContainer);
   });
 }
 
 retryBtn.addEventListener('click', () => {
-  stopWebcam();
   resultArea.style.display = 'none';
-  if (isWebcamMode) {
-    webcamSection.style.display = 'block';
-  } else {
-    uploadSection.style.display = 'block';
-    imageUpload.value = '';
-  }
+  uploadSection.style.display = 'block';
+  imageUpload.value = '';
 });
 
 // Form Submission Logic
