@@ -1,4 +1,4 @@
-const URL = "https://teachablemachine.withgoogle.com/models/1Q6fh53uP/";
+const URL = "https://teachablemachine.withgoogle.com/models/6DtRgJCTB/";
 let model, webcam, labelContainer, maxPredictions;
 let isWebcamMode = false;
 let animationFrameId;
