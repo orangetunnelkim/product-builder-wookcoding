@@ -6,27 +6,45 @@
   <title>로또 번호 생성기</title>
   <link href='style.css' rel='stylesheet'>
   <style>
-    .nav-btn {
-      margin-top: 1rem;
-      padding: 0.8rem 1.5rem;
+    .top-nav {
+      position: absolute;
+      top: 1rem;
+      right: 1rem;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .nav-btn-sm {
+      padding: 0.5rem 1rem;
       background-color: #ff6b6b;
       color: white;
       border: none;
-      border-radius: 30px;
+      border-radius: 20px;
       cursor: pointer;
       font-weight: 600;
       text-decoration: none;
-      display: inline-block;
+      font-size: 0.8rem;
       transition: transform 0.2s;
     }
-    .nav-btn:hover {
+    .nav-btn-sm:hover {
       transform: scale(1.05);
+    }
+    .theme-toggle {
+      position: static !important; /* Override absolute position in style.css */
+      font-size: 1.5rem;
+      background: none;
+      border: none;
+      cursor: pointer;
     }
   </style>
 </head>
 <body>
   <div class="container">
-    <button id="theme-toggle" class="theme-toggle" aria-label="Toggle dark mode">🌙</button>
+    <div class="top-nav">
+      <a href="animal-test.html" class="nav-btn-sm">동물상 테스트 🐶</a>
+      <button id="theme-toggle" class="theme-toggle" aria-label="Toggle dark mode">🌙</button>
+    </div>
+    
     <h1>로또 번호 생성기</h1>
     <div class="lotto-numbers">
       <span class="number">?</span>
@@ -37,11 +55,6 @@
       <span class="number">?</span>
     </div>
     <button id="generate-btn">번호 생성하기</button>
-    
-    <div style="margin-top: 2rem;">
-      <p>다른 테스트도 해보시겠어요?</p>
-      <a href="animal-test.html" class="nav-btn">인공지능 동물상 테스트 가기 🐶</a>
-    </div>
 
     <div class="partnership-section">
       <hr>
