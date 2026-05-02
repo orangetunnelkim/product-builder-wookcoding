@@ -4,86 +4,201 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="google-adsense-account" content="ca-pub-8767980338542086">
-  <title>로또 번호 생성기</title>
+  <meta name="description" content="무료 로또 번호 생성기 및 인공지능 동물상 테스트를 제공하는 종합 엔터테인먼트 포털입니다.">
+  <title>WookCoding - 로또 번호 생성 및 AI 테스트</title>
   <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8767980338542086"
      crossorigin="anonymous"></script>
   <link href='style.css' rel='stylesheet'>
   <style>
-    .top-nav {
-      position: absolute;
-      top: 1rem;
-      right: 1rem;
+    /* Navigation Bar */
+    .navbar {
       display: flex;
+      justify-content: space-between;
       align-items: center;
-      gap: 10px;
+      padding: 1rem 2rem;
+      background-color: var(--container-bg);
+      box-shadow: 0 2px 10px var(--shadow-color);
+      position: sticky;
+      top: 0;
+      z-index: 1000;
     }
-    .nav-btn-sm {
-      padding: 0.5rem 1rem;
-      background-color: #ff6b6b;
-      color: white;
-      border: none;
-      border-radius: 20px;
-      cursor: pointer;
-      font-weight: 600;
-      text-decoration: none;
-      font-size: 0.8rem;
-      transition: transform 0.2s;
-    }
-    .nav-btn-sm:hover {
-      transform: scale(1.05);
-    }
-    .theme-toggle {
-      position: static !important; /* Override absolute position in style.css */
+    .nav-logo {
       font-size: 1.5rem;
-      background: none;
-      border: none;
-      cursor: pointer;
+      font-weight: bold;
+      color: #ff6b6b;
+      text-decoration: none;
+    }
+    .nav-links {
+      display: flex;
+      gap: 1.5rem;
+      align-items: center;
+    }
+    .nav-links a {
+      text-decoration: none;
+      color: var(--text-color);
+      font-weight: 500;
+      font-size: 0.9rem;
+      transition: color 0.2s;
+    }
+    .nav-links a:hover {
+      color: #ff6b6b;
+    }
+    
+    /* Layout Adjustments */
+    body {
+      display: block; /* Remove center centering */
+      min-height: 100vh;
+    }
+    .main-wrapper {
+      max-width: 1000px;
+      margin: 2rem auto;
+      padding: 0 1rem;
+      display: grid;
+      grid-template-columns: 1fr 300px;
+      gap: 2rem;
+    }
+    @media (max-width: 768px) {
+      .main-wrapper {
+        grid-template-columns: 1fr;
+      }
+    }
+    
+    .content-area {
+      background-color: var(--container-bg);
+      padding: 2rem;
+      border-radius: 15px;
+      box-shadow: 0 5px 20px var(--shadow-color);
+    }
+    
+    .sidebar {
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+    }
+    .sidebar-widget {
+      background-color: var(--container-bg);
+      padding: 1.5rem;
+      border-radius: 15px;
+      box-shadow: 0 5px 15px var(--shadow-color);
+    }
+    .sidebar-widget h3 {
+      margin-top: 0;
+      font-size: 1.1rem;
+      margin-bottom: 1rem;
+      border-bottom: 2px solid #ff6b6b;
+      padding-bottom: 0.5rem;
+    }
+    
+    /* Footer */
+    footer {
+      background-color: var(--container-bg);
+      padding: 2rem;
+      margin-top: 4rem;
+      text-align: center;
+      font-size: 0.85rem;
+      border-top: 1px solid var(--number-bg);
+    }
+    .footer-links {
+      margin-bottom: 1rem;
+      display: flex;
+      justify-content: center;
+      gap: 1.5rem;
+    }
+    .footer-links a {
+      text-decoration: none;
+      color: var(--text-color);
+      opacity: 0.7;
+    }
+    
+    /* Lotto Styles */
+    .lotto-section { text-align: center; }
+    .lotto-numbers { margin: 2rem 0; }
+    
+    #generate-btn {
+        width: 100%;
+        max-width: 300px;
     }
   </style>
 </head>
 <body>
-  <div class="container">
-    <div class="top-nav">
-      <a href="animal-test.html" class="nav-btn-sm">동물상 테스트 🐶</a>
+  <nav class="navbar">
+    <a href="index.html" class="nav-logo">WookCoding</a>
+    <div class="nav-links">
+      <a href="index.html">로또생성기</a>
+      <a href="animal-test.html">동물상테스트</a>
       <button id="theme-toggle" class="theme-toggle" aria-label="Toggle dark mode">🌙</button>
     </div>
-    
-    <h1>로또 번호 생성기</h1>
-    <div class="lotto-numbers">
-      <span class="number">?</span>
-      <span class="number">?</span>
-      <span class="number">?</span>
-      <span class="number">?</span>
-      <span class="number">?</span>
-      <span class="number">?</span>
-    </div>
-    <button id="generate-btn">번호 생성하기</button>
+  </nav>
 
-    <div class="partnership-section">
-      <hr>
-      <h2>제휴 문의</h2>
-      <form action="https://formspree.io/f/xgodvvnv" method="POST" id="partnership-form">
-        <div class="form-group">
-          <label for="name">성함/업체명</label>
-          <input type="text" id="name" name="name" required placeholder="예: 홍길동 / 길동컴퍼니">
+  <div class="main-wrapper">
+    <main class="content-area">
+      <section class="lotto-section">
+        <h1>로또 번호 자동 생성기</h1>
+        <p>엄선된 알고리즘을 통해 이번 주 행운의 번호를 확인해보세요.</p>
+        
+        <div class="lotto-numbers">
+          <span class="number">?</span>
+          <span class="number">?</span>
+          <span class="number">?</span>
+          <span class="number">?</span>
+          <span class="number">?</span>
+          <span class="number">?</span>
         </div>
-        <div class="form-group">
-          <label for="email">이메일 주소</label>
-          <input type="email" id="email" name="_replyto" required placeholder="example@email.com">
-        </div>
-        <div class="form-group">
-          <label for="message">문의 내용</label>
-          <textarea id="message" name="message" required placeholder="제휴 관련 내용을 입력해주세요."></textarea>
-        </div>
-        <button type="submit" id="submit-btn">보내기</button>
-      </form>
-    </div>
+        <button id="generate-btn">오늘의 행운 번호 받기</button>
+      </section>
 
-    <div class="comments-section">
-      <hr>
-      <div id="disqus_thread"></div>
-    </div>
+      <article style="margin-top: 3rem; text-align: left; line-height: 1.6;">
+        <hr>
+        <h2>로또 6/45 이용 안내</h2>
+        <p>본 서비스는 사용자에게 무작위로 생성된 6개의 번호를 제공합니다. 로또 복권의 당첨은 확률에 기반하며, 본 서비스는 당첨을 보장하지 않습니다. 가벼운 마음으로 즐겨주시기 바랍니다.</p>
+        <h3>번호 생성 원리</h3>
+        <p>1부터 45까지의 숫자 중 중복되지 않는 6개의 숫자를 무작위로 추출합니다. 생성된 번호는 즉시 화면에 표시되며 별도로 저장되지 않아 개인정보 보호에도 안전합니다.</p>
+      </article>
+
+      <div class="comments-section">
+        <hr>
+        <div id="disqus_thread"></div>
+      </div>
+    </main>
+
+    <aside class="sidebar">
+      <div class="sidebar-widget">
+        <h3>인기 서비스</h3>
+        <ul style="list-style: none; padding: 0;">
+          <li style="margin-bottom: 0.8rem;"><a href="animal-test.html" style="text-decoration: none; color: #ff6b6b; font-weight: bold;">인공지능 동물상 테스트 🐶</a></li>
+          <li><p style="font-size: 0.85rem; opacity: 0.8;">내 얼굴은 어떤 동물을 닮았을까요? AI가 분석해드립니다.</p></li>
+        </ul>
+      </div>
+
+      <div class="sidebar-widget">
+        <h3>제휴 및 문의</h3>
+        <form action="https://formspree.io/f/xgodvvnv" method="POST" id="partnership-form">
+          <div class="form-group" style="margin-bottom: 1rem;">
+            <input type="text" name="name" required placeholder="성함" style="width: 100%; padding: 0.5rem; border-radius: 5px; border: 1px solid var(--number-bg); background: var(--bg-color); color: var(--text-color);">
+          </div>
+          <div class="form-group" style="margin-bottom: 1rem;">
+            <input type="email" name="_replyto" required placeholder="이메일" style="width: 100%; padding: 0.5rem; border-radius: 5px; border: 1px solid var(--number-bg); background: var(--bg-color); color: var(--text-color);">
+          </div>
+          <button type="submit" id="submit-btn" style="width: 100%; padding: 0.6rem; background: var(--btn-bg); color: white; border: none; border-radius: 5px; cursor: pointer;">문의하기</button>
+        </form>
+      </div>
+      
+      <!-- 광고 영역 (AdSense 승인 후 여기에 수동 광고 단위 배치 가능) -->
+      <div class="sidebar-widget" style="min-height: 250px; display: flex; align-items: center; justify-content: center; border: 1px dashed #ccc;">
+        <p style="font-size: 0.8rem; color: #999;">광고 공간</p>
+      </div>
+    </aside>
   </div>
+
+  <footer>
+    <div class="footer-links">
+      <a href="about.html">회사 소개</a>
+      <a href="privacy.html">개인정보처리방침</a>
+      <a href="terms.html">이용약관</a>
+    </div>
+    <p>&copy; 2026 WookCoding. All rights reserved.</p>
+  </footer>
+
   <script defer type="text/javascript" src="lotto.js"></script>
   <script>
       (function() {
