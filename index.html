@@ -1,24 +1,36 @@
 <!doctype html>
-<html lang="en">
+<html lang="ko">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Lotto Number Generator</title>
+  <title>인공지능 동물상 테스트</title>
   <link href='style.css' rel='stylesheet'>
 </head>
 <body>
   <div class="container">
     <button id="theme-toggle" class="theme-toggle" aria-label="Toggle dark mode">🌙</button>
-    <h1>Lotto Number Generator</h1>
-    <div class="lotto-numbers">
-      <span class="number">?</span>
-      <span class="number">?</span>
-      <span class="number">?</span>
-      <span class="number">?</span>
-      <span class="number">?</span>
-      <span class="number">?</span>
-    </div>
-    <button id="generate-btn">Generate Numbers</button>
+    
+    <header>
+      <h1>인공지능 동물상 테스트</h1>
+      <p class="subtitle">나와 닮은 동물은 무엇일까요?</p>
+    </header>
+
+    <main>
+      <div id="upload-area" class="upload-area">
+        <div class="upload-icon">📸</div>
+        <p>사진을 드래그하거나 클릭하여 업로드하세요</p>
+        <input type="file" id="image-upload" accept="image/*" hidden>
+      </div>
+
+      <div id="result-area" class="result-area" style="display: none;">
+        <div class="image-preview-container">
+          <img id="face-image" src="" alt="Face Image">
+        </div>
+        <p id="loading-message">분석 중...</p>
+        <div id="label-container" class="label-container"></div>
+        <button id="retry-btn">다시 하기</button>
+      </div>
+    </main>
 
     <div class="partnership-section">
       <hr>
@@ -43,26 +55,20 @@
     <div class="comments-section">
       <hr>
       <div id="disqus_thread"></div>
-      <script>
-          /**
-          *  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
-          *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables    */
-          /*
-          var disqus_config = function () {
-          this.page.url = PAGE_URL;  // Replace PAGE_URL with your page's canonical URL variable
-          this.page.identifier = PAGE_IDENTIFIER; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
-          };
-          */
-          (function() { // DON'T EDIT BELOW THIS LINE
-          var d = document, s = d.createElement('script');
-          s.src = 'https://productbuilder-myjgdia0g9.disqus.com/embed.js';
-          s.setAttribute('data-timestamp', +new Date());
-          (d.head || d.body).appendChild(s);
-          })();
-      </script>
-      <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
     </div>
   </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@latest/dist/tf.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@teachablemachine/image@latest/dist/teachablemachine-image.min.js"></script>
   <script defer type="text/javascript" src="main.js"></script>
+  
+  <script>
+      (function() {
+      var d = document, s = d.createElement('script');
+      s.src = 'https://productbuilder-myjgdia0g9.disqus.com/embed.js';
+      s.setAttribute('data-timestamp', +new Date());
+      (d.head || d.body).appendChild(s);
+      })();
+  </script>
 </body>
 </html>

@@ -1,25 +1,27 @@
 :root {
-    --bg-color: #f0f0f0;
+    --bg-color: #f8f9fa;
     --container-bg: #ffffff;
     --text-color: #333333;
-    --number-bg: #eeeeee;
+    --number-bg: #e9ecef;
     --btn-bg: #4CAF50;
     --btn-hover: #45a049;
-    --shadow-color: rgba(0, 0, 0, 0.1);
+    --shadow-color: rgba(0, 0, 0, 0.08);
+    --accent-color: #ff6b6b;
 }
 
 body.dark-mode {
-    --bg-color: #1a1a1a;
-    --container-bg: #2d2d2d;
-    --text-color: #f0f0f0;
-    --number-bg: #404040;
-    --btn-bg: #2e7d32;
-    --btn-hover: #1b5e20;
-    --shadow-color: rgba(0, 0, 0, 0.5);
+    --bg-color: #121212;
+    --container-bg: #1e1e1e;
+    --text-color: #e0e0e0;
+    --number-bg: #2d2d2d;
+    --btn-bg: #388e3c;
+    --btn-hover: #2e7d32;
+    --shadow-color: rgba(0, 0, 0, 0.4);
+    --accent-color: #ff5252;
 }
 
 body {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, system-ui, Roboto, 'Helvetica Neue', 'Segoe UI', 'Apple SD Gothic Neo', 'Noto Sans KR', 'Malgun Gothic', sans-serif;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -35,17 +37,31 @@ body {
     text-align: center;
     padding: 3rem 2rem;
     background-color: var(--container-bg);
-    border-radius: 15px;
-    box-shadow: 0 10px 30px var(--shadow-color);
+    border-radius: 24px;
+    box-shadow: 0 10px 40px var(--shadow-color);
     width: 90%;
-    max-width: 450px;
+    max-width: 500px;
     transition: background-color 0.3s, box-shadow 0.3s;
+    margin: 2rem 0;
+}
+
+header h1 {
+    font-size: 1.8rem;
+    margin-bottom: 0.5rem;
+    color: var(--accent-color);
+}
+
+.subtitle {
+    font-size: 1rem;
+    color: var(--text-color);
+    opacity: 0.8;
+    margin-bottom: 2rem;
 }
 
 .theme-toggle {
     position: absolute;
-    top: 1rem;
-    right: 1rem;
+    top: 1.5rem;
+    right: 1.5rem;
     background: none;
     border: none;
     font-size: 1.5rem;
@@ -54,54 +70,110 @@ body {
     transition: transform 0.3s ease;
 }
 
-.theme-toggle:hover {
-    transform: rotate(20deg);
-}
-
-.lotto-numbers {
+/* Upload Area */
+.upload-area {
+    border: 3px dashed var(--number-bg);
+    border-radius: 16px;
+    padding: 3rem 1rem;
+    cursor: pointer;
+    transition: all 0.3s;
     display: flex;
-    justify-content: center;
-    gap: 0.8rem;
-    margin: 2.5rem 0;
-}
-
-.number {
-    width: 55px;
-    height: 55px;
-    border-radius: 50%;
-    background-color: var(--number-bg);
-    display: flex;
-    justify-content: center;
+    flex-direction: column;
     align-items: center;
-    font-size: 1.4rem;
-    font-weight: bold;
-    box-shadow: inset 0 2px 5px var(--shadow-color);
-    transition: background-color 0.3s;
 }
 
-#generate-btn {
+.upload-area:hover {
+    border-color: var(--accent-color);
+    background-color: var(--number-bg);
+}
+
+.upload-icon {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+}
+
+/* Result Area */
+.result-area {
+    animation: fadeIn 0.5s ease-out;
+}
+
+.image-preview-container {
+    width: 100%;
+    max-width: 300px;
+    margin: 0 auto 1.5rem;
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: 0 4px 15px var(--shadow-color);
+}
+
+#face-image {
+    width: 100%;
+    height: auto;
+    display: block;
+}
+
+.label-container {
+    margin: 2rem 0;
+    text-align: left;
+}
+
+.bar-container {
+    display: flex;
+    align-items: center;
+    margin-bottom: 1rem;
+    gap: 10px;
+}
+
+.bar-label {
+    width: 60px;
+    font-weight: 600;
+    font-size: 0.9rem;
+}
+
+.progress-wrapper {
+    flex-grow: 1;
+    height: 12px;
+    background-color: var(--number-bg);
+    border-radius: 6px;
+    overflow: hidden;
+}
+
+.progress-bar {
+    height: 100%;
+    border-radius: 6px;
+    transition: width 1s ease-in-out;
+}
+
+/* Prediction Colors */
+.dog-bar { background-color: #ffcc33; }
+.cat-bar { background-color: #ff6699; }
+/* Default fallback */
+.progress-bar { background-color: var(--accent-color); }
+
+.percent {
+    width: 45px;
+    font-size: 0.85rem;
+    text-align: right;
+    font-weight: bold;
+}
+
+#retry-btn {
     padding: 0.8rem 2rem;
-    font-size: 1.1rem;
-    background-color: var(--btn-bg);
+    font-size: 1rem;
+    background-color: var(--accent-color);
     color: white;
     border: none;
     border-radius: 30px;
     cursor: pointer;
     font-weight: 600;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
-    transition: background-color 0.3s, transform 0.1s;
+    transition: transform 0.2s;
 }
 
-#generate-btn:hover {
-    background-color: var(--btn-hover);
-    transform: translateY(-2px);
+#retry-btn:hover {
+    transform: scale(1.05);
 }
 
-#generate-btn:active {
-    transform: translateY(0);
-}
-
-/* Partnership Form Styles */
+/* Common Section */
 .partnership-section {
     margin-top: 3rem;
     text-align: left;
@@ -110,13 +182,13 @@ body {
 hr {
     border: none;
     border-top: 1px solid var(--number-bg);
-    margin-bottom: 2rem;
+    margin: 2rem 0;
 }
 
 .partnership-section h2 {
     text-align: center;
     margin-bottom: 1.5rem;
-    font-size: 1.5rem;
+    font-size: 1.4rem;
 }
 
 .form-group {
@@ -135,48 +207,43 @@ hr {
     width: 100%;
     padding: 0.8rem;
     border: 1px solid var(--number-bg);
-    border-radius: 8px;
+    border-radius: 12px;
     background-color: var(--bg-color);
     color: var(--text-color);
     font-family: inherit;
     box-sizing: border-box;
-    transition: border-color 0.3s, box-shadow 0.3s;
+    transition: all 0.3s;
 }
 
 .form-group input:focus, 
 .form-group textarea:focus {
     outline: none;
-    border-color: var(--btn-bg);
-    box-shadow: 0 0 0 3px rgba(76, 175, 80, 0.2);
-}
-
-.form-group textarea {
-    height: 100px;
-    resize: vertical;
+    border-color: var(--accent-color);
+    box-shadow: 0 0 0 3px rgba(255, 107, 107, 0.2);
 }
 
 #submit-btn {
     width: 100%;
-    padding: 0.8rem;
+    padding: 1rem;
     background-color: var(--btn-bg);
     color: white;
     border: none;
-    border-radius: 8px;
+    border-radius: 12px;
     font-size: 1rem;
     font-weight: 600;
     cursor: pointer;
-    transition: background-color 0.3s, transform 0.1s;
+    transition: all 0.2s;
 }
 
 #submit-btn:hover {
     background-color: var(--btn-hover);
 }
 
-#submit-btn:active {
-    transform: scale(0.98);
-}
-
-/* Comments Section Styles */
 .comments-section {
     margin-top: 3rem;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
 }
